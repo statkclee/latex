@@ -229,3 +229,66 @@ $ sudo make install
 [^3]
 
 [^3]: [공주대학교 LaTeX 워크샵](http://wiki.ktug.org/wiki/wiki.php/LaTeXWorkshop)
+
+
+# LaTeX 테스트 사례 준비 {#latex-test-content}
+
+LaTeX 문서 테스트 사례를 먼저 준비하여 한글 LaTeX 문서 작업을 본격 시작하기 전에 준비를 한다.
+
+1. 영문 LaTeX 문서 테스트 사례: 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 pdf 파일을 산출하는지 점검한다.
+1. 영문 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다.
+    - 목차(Table of Contents)
+    - 그림과 표
+    - 색인(makeindex)
+    - 참고문헌(bibtex)
+1. 한글 LaTeX 문서 테스트 사례: 한글 문서의 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 한글이 pdf 파일에 찍히는지를 점검한다.
+1. 한글 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다. 특히, 유니코드(utf-8)적용에 따른 줄간격, 글자간격 등 차이가 생길 수 있는 부분을 집중적으로 점검한다.
+    - 목차(Table of Contents)
+    - 그림과 표
+    - 색인(makeindex)
+    - 참고문헌(bibtex)
+1. HTML 산출물 점검: `.pdf`, `.ps`, `.dvi`는 동일한 계열이라 하나가 되면 나머지는 자동으로 될 수 있지만, `.tex` 파일을 **HTML**로 변환하는 것은 전혀 다른 문제로 단일 편집문서(LaTeX)에서 `.pdf`와 `.html`이 생성되도록 점검한다.
+    - `hevea.sty`를 저자는 사용했지만 다른 HTML 변환도구도 살펴보기를 권장한다.
+    - [Pandoc](http://pandoc.org/)도 많이 사용되는 강력한 HTML문서 변환도구로 간단한 명령어로 HTML 파일을 자동생성한다. 예를 들어, `pandoc -s book.tex --mathjax -o book.html`.
+   
+   
+## 영문 `.tex` 문서 &rarr; `.pdf` {#english-first}
+
+`pdflatex hello-world.tex` 명령어를 실행하면 `hello-world.pdf` 파일을 생성한다. 물론 `hello-world.aux` , `hello-world.log` 파일로 함께 만들어낸다.
+
+```{r english-test, eval = FALSE}
+% hello-world.tex 견본 파일
+\documentclass{article}
+\begin{document}
+
+Welcome to LaTeX Hello World!
+% 한글을 사랑합니다.
+
+\end{document}
+```
+
+영문은 정상적으로 출력되나 한글은 그렇지 못할 수 있다. 따라서 적절하게 설정이 되었는지 다음 LaTeX 예제를 통해서 확인을 할 필요가 있다.
+
+## 한글 LaTeX 시험 {#test-korean}
+
+최신 `kotex`를 사용하게 되면 한글은 `\usepackage{kotex}`으로 사용을 통일시킬 수 있다.
+
+```{r fix-english-latex, eval = FALSE}
+% 한글견본 출처: 김도현, 2004년 동국대 법대, LaTeX으로의 초대 교재에서 발췌.
+%\documentclass[12pt]{oblivoir}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+\documentclass{article}
+\usepackage{kotex}
+
+\begin{document}
+	
+	Hello world!
+	
+	안녕하세요. 안녕하세요. 
+	
+	$x^2 + y^2 = z^2 $ %수학 모드
+	
+\end{document}
+```
