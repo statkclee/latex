@@ -13,9 +13,11 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
 
 ## 학습목차 
 
-1. [문서 프로그래밍 - 한글 $LaTeX$ 사전준비](latex.html)
-    * [한글 LaTeX 소개](latex-intro.html)
+
+    
+1. [다양한 LaTeX IDE 저작환경](latex-environment.html)
+1. [원격 유닉스 환경 한글 사전준비](latex-remote.html)
+1. [한글 LaTeX 소개](latex-intro.html)
     * [한글 LaTeX 윈도우 설치](latex-install-windows.html)
     * [한글 LaTeX 설치환경 가상화](latex-virtual.html)
     * [한글 LaTeX 편집기](latex-utils.html)
-1. [다양한 저작환경](latex-environment.html)
