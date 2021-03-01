@@ -1,0 +1,190 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "한글 LaTeX 헬로월드"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+
+
+# 한글 문서 {#latex-kor-structure}
+
+`TeXstudio` 상단 메뉴 `옵션(O)` &rarr; `Root Directory` 에서 `korean.tex` 파일이 위치하는 곳을 지정해야 된다. 그리고 나서, `lipsum.pdf` 영문 파일은 참고문헌 서지관리를 위해 BibTeX 파일로 [biblatex-examples.bib](http://ctan.cs.uu.nl/macros/latex/contrib/biblatex/doc/examples/biblatex-examples.bib)을 사용하기 때문에 다음과 같은 단순한 구조를 갖게 된다.
+한글 `lipsum` 생성기 [Generator for randomized typographic filler text](https://generator.lorem-ipsum.info/)에서 한글 문자를 생성한 후 `sections/` 디렉토리 아래  `01_intro.tex`, `02_proof.tex` 파일에 각각 저장시켜 두고 나중에 `import` 해서 불러와서 사용한다.
+
+```{r english-latex, eval = FALSE}
+latex/
+|-- lipsum.tex
+|-- biblatex-examples.bib
+|-- secions/
+    |-- 01_intro.tex
+    |-- 02_proof.tex
+```
+
+## $\LaTeX$ 파일 구성 {#latex-format}
+
+`lipsum.tex` 파일은 다음과 같이 문서 양식을 지정한 후에 `lipsum` 팩키지를 통해 아무 의미없는 문단을 생성시켜 작성된 문서의 대략의 형태를 파악할 수 있게 한다. 
+참고문헌 서지관리를 위해 `bibtex`을 핵심 엔진으로 사용하고 `\addbibresource`를 사용해서 BibTeX 파일을 `biblatex-examples.bib`을 지정한다. `\maketitle` 명령어를 통해 문서 제목과 저자를 작성하고 `\abstract`, `\section`을 통해 문서의 주요 내용을 작성한다. 그리고 나서 `\autocite`를 통해 참고문헌 관리를 자동화한다.
+
+```{r latex-english-structure, eval = FALSE}
+\documentclass{article}
+\usepackage{kotex}              <---- 한글 필수 팩키지
+\usepackage{import}             <---- 파일 가져오기
+\usepackage{lipsum}             <---- 아무 의미없는 문단 자동생성
+
+% References                    <---- 참고문헌 
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage[style=authoryear, backend=bibtex]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+	% Title and Author          <---- 문서 제목과 저자
+	\title{한글 \LaTeX}
+	\author{이광춘}
+	\maketitle
+	
+	% Main Contents             <---- 초록을 비롯한 본문
+	\abstract{}
+      {\fontfamily{lmtt}\selectfont  <---- Latin Modern Sans Typewriter 글꼴
+          \lipsum[1]  
+      }
+	\section{들어가며}
+			\import{sections/}{01_intro.tex}
+	\section{main findings}
+		\lipsum[1-2]
+	\section{주장 증명방법}
+			\import{sections/}{02_proof.tex}
+	% References               <---- 참고문헌 테스트 
+	\section{references}
+		Lorem \autocite{sigfridsson}
+		ipsum \autocite{worman}
+		dolor \autocite{nussbaum}
+		sit \autocite{sigfridsson}
+		amet \autocite{geer}	
+	\printbibliography
+\end{document}
+```
+
+---
+
+``` {r embed-latex-pdf, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean/korean.pdf")
+```
+
+
+# 한글 글꼴 {#latex-fonts-setting}
+
+한글 글꼴을 적용하고자 하는 경우 `\setmainhangulfont`,  `\setsanshangulfont`, `\setmonohangulfont`를 지정하여 표현한다. `\hangulfontspec{맑은 고딕}`을 지정하면 특정 글꼴을 선별하여 지정할 수 있다.
+
+```{r hangul-fonts, eval = FALSE}
+\documentclass{article}
+\usepackage{kotex}
+\usepackage{import}
+\usepackage{lipsum}  
+
+% Fonts
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%% 영문 폰트
+%\setmainfont{TeX Gyre Termes}
+%\setromanfont{Times New Roman}
+%\setsansfont{Arial}
+%\setmonofont{Courier New}
+%\setmainfont{Arial}
+%% 한글 폰트
+\setmainhangulfont{NanumMyeongjo} % NanumMyeongjo
+\setsanshangulfont{맑은 고딕}     % MalgunGothic
+\setmonohangulfont{D2Coding}
+
+% References
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage[style=authoryear, backend=bibtex]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+% 제 X 장 설정
+\renewcommand{\thesection}{제 \arabic{section} 절}
+
+\begin{document}
+	% Title and Author
+	\title{한글 \LaTeX}
+	\author{이광춘}
+	\maketitle
+	
+	% Main Contents
+	\abstract{}
+		{\fontfamily{lmtt}\selectfont
+			\lipsum[1]	
+		}
+	\section{들어가며}
+		{\hangulfontspec{맑은 고딕}
+			\import{sections/}{01_intro.tex}
+		}
+	\section{main findings}
+		\lipsum[1-2]
+	\section{주장 증명방법}
+			\import{sections/}{02_proof.tex}
+	\section{코드}
+		\begin{verbatim}
+			코딩 글꼴 한글도 함께 합니다!!!
+			Text enclosed inside \texttt{verbatim} environment 
+			is printed directly 
+			and all \LaTeX{} commands are ignored.
+		\end{verbatim}
+	% References
+	\section{참고 문헌}
+			Lorem \autocite{sigfridsson}
+			ipsum \autocite{worman}
+			dolor \autocite{nussbaum}
+			sit \autocite{sigfridsson}
+			amet \autocite{geer}	
+	\printbibliography
+\end{document}
+```
+
+
+---
+
+``` {r embed-hangul-korean-pdf, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean_font/main.pdf")
+```
