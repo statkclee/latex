@@ -1,0 +1,48 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "LaTeX 프로젝트"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름", "팩키지"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+
+![](fig/latex-project-structure.png)
