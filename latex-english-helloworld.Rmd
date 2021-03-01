@@ -1,0 +1,171 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "영문 LaTeX 헬로월드"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+
+
+# 영문 문서 {#latex-eng-structure}
+
+`TeXstudio` 상단 메뉴 `옵션(O)` &rarr; `Root Directory` 에서 `lipsum.tex` 파일이 위치하는 곳을 지정해야 된다. 그리고 나서, `lipsum.pdf` 영문 파일은 참고문헌 서지관리를 위해 BibTeX 파일로 [biblatex-examples.bib](http://ctan.cs.uu.nl/macros/latex/contrib/biblatex/doc/examples/biblatex-examples.bib)을 사용하기 때문에 다음과 같은 단순한 구조를 갖게 된다.
+
+```{r english-latex, eval = FALSE}
+latex/
+|-- lipsum.tex
+|-- biblatex-examples.bib
+```
+
+## $\LaTeX$ 파일 구성 {#latex-format}
+
+`lipsum.tex` 파일은 다음과 같이 문서 양식을 지정한 후에 `lipsum` 팩키지를 통해 아무 의미없는 문단을 생성시켜 작성된 문서의 대략의 형태를 파악할 수 있게 한다. 
+참고문헌 서지관리를 위해 `bibtex`을 핵심 엔진으로 사용하고 `\addbibresource`를 사용해서 BibTeX 파일을 `biblatex-examples.bib`을 지정한다. `\maketitle` 명령어를 통해 문서 제목과 저자를 작성하고 `\abstract`, `\section`을 통해 문서의 주요 내용을 작성한다. 그리고 나서 `\autocite`를 통해 참고문헌 관리를 자동화한다.
+
+```{r latex-english-structure, eval = FALSE}
+\documentclass{article}
+\usepackage{lipsum}             <---- 아무 의미없는 문단 자동생성
+
+% References                    <---- 참고문헌 
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage[style=authoryear, backend=bibtex]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+	% Title and Author          <---- 문서 제목과 저자
+	\title{English \LaTeX}
+	\author{Tidyverse Korea}
+	\maketitle
+	
+	% Main Contents             <---- 초록을 비롯한 본문
+	\abstract{}
+		\lipsum[1]	
+	\section{introduction}
+		\lipsum[3]
+	\section{main findings
+	}
+		\lipsum[1-2]
+	% References               <---- 참고문헌 테스트 
+	\section{references}
+		Lorem \autocite{sigfridsson}
+		ipsum \autocite{worman}
+		dolor \autocite{nussbaum}
+		sit \autocite{sigfridsson}
+		amet \autocite{geer}	
+	\printbibliography
+\end{document}
+```
+
+---
+
+``` {r embed-latex-pdf, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/english/lipsum.pdf")
+```
+
+# 영문 글꼴 [^overleaf-fonts]  {#set-english-font}
+
+[^overleaf-fonts]: [Overleaf, "Font typefaces"](https://www.overleaf.com/learn/latex/font_typefaces)
+
+대부분의 $\LaTeX$ 기본 글꼴 설정은 "Computer Modern" 서체 가족(family) 인데, 다음 4가지 중 하나로 설정을 변경할 수 있다. 
+
+- 컴퓨터 모던 (표준 $\LaTeX$ 클래스): CM Roman, CM Sans Serif, CM Typewriter
+- 라틴 모던 (Latin Modern): LM Roman, LM Sans Serif, LM Typewriter, LM Dunhill
+- 포스트 스크립트(Post Script Fonts): Times, Utopia/Fourier, Palatino, Bookman, Helvetica, Courier
+- $\TeX$ Gyre
+
+글꼴 변경을 위해서 `fontenc`, `inputenc`를 기본을 두고 `Helvetica` 글꼴로 변경하고자 할 경우 `helvet`을 지정하면 전체 문서 글꼴이 `Helvetica` 글꼴로 변경된다. 특정 영역을 **Latin Modern Sans Typewriter** 글꼴로 변경하고자 하는 경우 `{\fontfamily{lmtt}\selectfont ... }`을 감싸고 나서 `...`에 글자를 넣으면 된다. 여기서 `lmtt`가  Latin Modern Sans Typewriter 글꼴을 지정한다. Roman(Serif), Sans Serif, Typewriter(Monospaced) 글꼴에 대해서는 비교표에 대해서는 ["Font typefaces"](https://www.overleaf.com/learn/latex/font_typefaces)를 참조한다. 예를 들어, `Times` 글꼴을 사용하고자 하는 경우 다음과 같이 작업한다.
+
+1. `\usepackage{mathptmx}` 을 지정하거나,
+1. `{\fontfamily{ptm}\selectfont ... }` 을 지정한다.
+
+
+
+```{r change-font, eval = FALSE}
+\documentclass{article}
+\usepackage{lipsum}             <---- 아무 의미없는 문단 자동생성
+
+% Fonts                         <---- 전체 글꼴 변경
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}             <---- Helvetica 글꼴
+
+% References                    <---- 참고문헌 
+\usepackage{babel}
+\usepackage{csquotes}
+\usepackage[style=authoryear, backend=bibtex]{biblatex}
+\addbibresource{biblatex-examples.bib}
+
+\begin{document}
+	% Title and Author          <---- 문서 제목과 저자
+	\title{English \LaTeX}
+	\author{Tidyverse Korea}
+	\maketitle
+	
+	% Main Contents             <---- 초록을 비롯한 본문
+	\abstract{}
+		{\fontfamily{lmtt}\selectfont  <---- Latin Modern Sans Typewriter 글꼴
+			\lipsum[1]	
+		}
+	\section{introduction}
+		\lipsum[3]
+	\section{main findings
+	}
+		\lipsum[1-2]
+	% References               <---- 참고문헌 테스트 
+	\section{references}
+		Lorem \autocite{sigfridsson}
+		ipsum \autocite{worman}
+		dolor \autocite{nussbaum}
+		sit \autocite{sigfridsson}
+		amet \autocite{geer}	
+	\printbibliography
+\end{document}
+```
+
+---
+
+``` {r embed-latex-fonts, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/english_font/font-whole-document.pdf")
+```
+
+
