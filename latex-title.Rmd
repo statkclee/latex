@@ -1,0 +1,152 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "LaTeX lipsum과 제목(Title)"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름", "제목", "Title"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+
+
+# 첫인상 제목 {#document-title}
+
+# 영문 lipsum {#english-lipsum}
+
+`blindtext` 팩키지를 사용하면 `lipsum` 긴문장과 단문을 $\LaTeX$에서 쉽게 만들어낼 수 있다. 
+- `\blindtext`: 단문
+- `\Blindtext`: 장문
+
+```{latex blindtext, eval = FALSE}
+\documentclass[]{article}
+\usepackage{kotex}
+\usepackage{blindtext}
+
+%opening
+\title{멋진 \LaTeX 제목 페이지}
+\author{이광춘}
+\date{2021-03-03}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\blindtext
+
+\end{abstract}
+
+\section{들어가며}
+
+\Blindtext
+
+\end{document}
+```
+
+---
+
+``` {r embed-blindtext, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean_lipsum/lipsum.pdf")
+```
+
+
+# 한글 lipsum {#korean-lipsum}
+
+## lipsum 팩키지 설치 {#korean-lipsum-install}
+
+`jiwonlipsum` 팩키지는 [KTUG Private Repository](http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository)에 저장되어 있어 이를 설치한 후 한글 lipsum을 사용할 수 있다. `jiwonlipsum` 팩키지가 저장된 [KTUG Private Repository](http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository) 저장소를 활용하는 방식은 다음과 같다.
+
+```{bash install-private-repo, eval = FALSE}
+$ tlmgr repository add http://ftp.ktug.org/KTUG/texlive/tlnet/ ktug
+$ tlmgr pinning add ktug "*"
+$ tlmgr install jiwonlipsum
+tlmgr.pl: package repositories
+        main = https://mirror.navercorp.com/CTAN/systems/texlive/tlnet (verified)
+        ktug = http://ftp.ktug.org/KTUG/texlive/tlnet/ (not verified: pubkey missing)
+For more about verification, see https://texlive.info/verification.html.
+[1/1, ??:??/??:??] install: jiwonlipsum @ktug [245k]
+running mktexlsr ...
+done running mktexlsr.
+running mtxrun --generate ...
+done running mtxrun --generate.
+tlmgr.pl: package log updated: C:/texlive/2020/texmf-var/web2c/tlmgr.log
+```
+
+## lipsum 헬로월드 {#korean-lipsum-hw}
+
+```{r lipsum-korean-helloworld, eval = FALSE}
+\documentclass[]{article}
+\usepackage{kotex}
+%\usepackage{blindtext}
+\usepackage{jiwonlipsum}
+
+%opening
+\title{멋진 \LaTeX 제목 페이지}
+\author{이광춘}
+\date{2021-03-03}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+%\blindtext
+\jiwon[1]
+
+\end{abstract}
+
+\section{들어가며}
+
+%\Blindtext
+\jiwon
+
+\end{document}
+```
+
+---
+
+``` {r embed-blindtext-korean, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean_lipsum/korean_lipsum.pdf")
+```
+
+
+
