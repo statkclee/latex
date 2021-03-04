@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "LaTeX 과 PDF "
-subtitle: "LaTeX lipsum과 제목(Title)"
+subtitle: "LaTeX 제목(Title)"
 author:
 - name: "이광춘"
   affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
@@ -19,7 +19,7 @@ output:
     highlight: tango
     code_folding: show
     number_section: true
-    self_contained: true
+    self_contained: false
 bibliography: bibliography_latex.bib
 csl: biomed-central.csl
 mainfont: NanumGothic
@@ -48,105 +48,108 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 
 # 첫인상 제목 {#document-title}
 
-# 영문 lipsum {#english-lipsum}
+논문과 보고서의 첫인상은 무척이나 중요하다. 제목과 함께 저자와 소속도 명기하고 필요한 경우 교신 저자(Corresponding author)도 넣어 전자우편주소를 추가한다. `authblk` 팩키지의 도움으로 이런 전체 과정이 참 단순화되고 문서 작성코드도 깔끔해졌다.
 
-`blindtext` 팩키지를 사용하면 `lipsum` 긴문장과 단문을 $\LaTeX$에서 쉽게 만들어낼 수 있다. 
-- `\blindtext`: 단문
-- `\Blindtext`: 장문
-
-```{latex blindtext, eval = FALSE}
+```{latex latex-title, eval = FALSE}
 \documentclass[]{article}
 \usepackage{kotex}
-\usepackage{blindtext}
-
-%opening
-\title{멋진 \LaTeX 제목 페이지}
-\author{이광춘}
-\date{2021-03-03}
-
-\begin{document}
-
-\maketitle
-
-\begin{abstract}
-
-\blindtext
-
-\end{abstract}
-
-\section{들어가며}
-
-\Blindtext
-
-\end{document}
-```
-
----
-
-``` {r embed-blindtext, out.height = "460px", out.width='800px', echo=TRUE} 
-knitr::include_graphics("lipsum/korean_lipsum/lipsum.pdf")
-```
-
-
-# 한글 lipsum {#korean-lipsum}
-
-## lipsum 팩키지 설치 {#korean-lipsum-install}
-
-`jiwonlipsum` 팩키지는 [KTUG Private Repository](http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository)에 저장되어 있어 이를 설치한 후 한글 lipsum을 사용할 수 있다. `jiwonlipsum` 팩키지가 저장된 [KTUG Private Repository](http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository) 저장소를 활용하는 방식은 다음과 같다.
-
-```{bash install-private-repo, eval = FALSE}
-$ tlmgr repository add http://ftp.ktug.org/KTUG/texlive/tlnet/ ktug
-$ tlmgr pinning add ktug "*"
-$ tlmgr install jiwonlipsum
-tlmgr.pl: package repositories
-        main = https://mirror.navercorp.com/CTAN/systems/texlive/tlnet (verified)
-        ktug = http://ftp.ktug.org/KTUG/texlive/tlnet/ (not verified: pubkey missing)
-For more about verification, see https://texlive.info/verification.html.
-[1/1, ??:??/??:??] install: jiwonlipsum @ktug [245k]
-running mktexlsr ...
-done running mktexlsr.
-running mtxrun --generate ...
-done running mtxrun --generate.
-tlmgr.pl: package log updated: C:/texlive/2020/texmf-var/web2c/tlmgr.log
-```
-
-## lipsum 헬로월드 {#korean-lipsum-hw}
-
-```{r lipsum-korean-helloworld, eval = FALSE}
-\documentclass[]{article}
-\usepackage{kotex}
-%\usepackage{blindtext}
 \usepackage{jiwonlipsum}
+\usepackage{authblk}
 
 %opening
 \title{멋진 \LaTeX 제목 페이지}
-\author{이광춘}
+\author{이광춘 \thanks{교신저자(Corresponding author): tidyverse@edu.go.kr}}
+\author[2]{나R러브}
 \date{2021-03-03}
+
+\affil{Tidyverse Korea}
+\affil[2]{Seoul R Meetup}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-
-%\blindtext
-\jiwon[1]
-
+ 	\jiwon[1]
 \end{abstract}
 
 \section{들어가며}
-
-%\Blindtext
-\jiwon
+	\jiwon
 
 \end{document}
 ```
 
 ---
 
-``` {r embed-blindtext-korean, out.height = "460px", out.width='800px', echo=TRUE} 
-knitr::include_graphics("lipsum/korean_lipsum/korean_lipsum.pdf")
+``` {r embed-latex-title, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean_lipsum/title.pdf")
 ```
 
+# 학위논문 제목 {#document-title-practicals}
 
+`\begin{titlepage}`를 사용하여 학위논문에 관련된 내용을 채워넣고 `graphicx` 팩키지를 사용해서 학위논문에 들어갈 학교 이미지도 추가하여 모듈화시켜 깔끔하게 작성한다.
 
+```{latex thesis-title, eval = FALSE}
+\documentclass[a4]{article}
+\usepackage{kotex}
+\usepackage{jiwonlipsum}
+\usepackage{authblk}
+\usepackage{graphicx}
+\graphicspath{ {./fig/} }
+
+\begin{document}
+
+\begin{titlepage}	
+	\centering 	
+	{\LARGE \bfseries 멋진 \LaTeX 학위논문}
+	\vspace{3\baselineskip}
+	
+	{\Large Tidyverse가 데이터 과학자 정신건강에 미치는 긍정효과}
+	\vspace{3.5\baselineskip}
+	
+	{\Large Submitted in partial fulfillment of the requirements     \vspace{0.5\baselineskip}
+		
+		for the degree of  }
+	\vspace{3.5\baselineskip}
+	
+	{\Large Master of Technology}
+	\vspace{0.5\baselineskip}
+	
+	{\Large by}
+	\vspace{0.5\baselineskip}
+	
+	{\Large \bfseries 이광춘}
+	\vspace{3\baselineskip}
+	
+	{\Large Supervisor: \bfseries 해드리 위컴}
+	\vspace{3.5\baselineskip}
+	
+	\includegraphics[width=0.1\linewidth]{tidyverse}
+	\vspace{3.5\baselineskip}
+	
+	{\Large Department of Data Science}
+	\vspace{0.5\baselineskip}
+	
+	{\Large RStudio}
+	\vspace{3.5\baselineskip}
+	
+	{\Large \today}    
+	
+\end{titlepage}		
+%--------------------------------------------------------	
+
+\begin{abstract}
+ 	\jiwon[1]
+\end{abstract}
+
+\section{들어가며}
+	\jiwon
+
+\end{document}
+```
+
+---
+
+``` {r embed-latex-title-thesis, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("lipsum/korean_lipsum/title_in_practice.pdf")
+```
