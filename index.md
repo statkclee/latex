@@ -28,3 +28,6 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
 1. [LaTeX 팩키지](latex-packages.html)
 1. [LaTeX 프로젝트](latex-project.html)
 1. [LaTeX 제목(Title)](latex-title.html)
+1. [LaTeX 판형과 판면 레이아웃](latex-layout.html)
+
+

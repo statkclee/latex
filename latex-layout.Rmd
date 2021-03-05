@@ -1,0 +1,57 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "LaTeX 판형과 판면 레이아웃"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름", "팩키지", "레이아웃", "layout", "판형", "판면"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+# 종이 크기 [^1] {#standard-page-size}
+
+[^1]: [위키백과, "종이 크기"](https://ko.wikipedia.org/wiki/종이_크기)
+
+종이 크기(Standard Paper Size)는 수많은 표준이 있으며 나라와 시기에 따라 다르다.
+오늘날 쓰이는 크기에는 대한민국에서 활용하는 국제 표준인 **ISO A형(A4 등 A 계열)**과 북아메리카(North American) 미국 종이 크기가 있다.
+국제 종이 크기 표준은 ISO 216이며 이를 따라 제작한 종이를 흔히 ISO A형이라고도 한다.
+A형 전지는 A0로 표기하며 이를 접어서 절단할 때마다 숫자를 늘린다.
+A1은 한번 접어서 자른 크기이며, 흔히 사용하는 A4는 A0를 네 번 접어서 자른 종이 크기이다.
+가장 많이 사용되고 있는 A4는 가로 x 세로 $210 mm \times 297 mm$ 크기를 갖는다.
+
+![](fig/ISO_A_size.png)
