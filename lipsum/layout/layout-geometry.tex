@@ -3,10 +3,16 @@
 \usepackage{jiwonlipsum}
 \usepackage{layout}
 
-\usepackage[stock]{fapapersize}
-\usefastocksize{210mm,297mm}
-\usefapapersize{190mm,260mm,30mm,30mm,35mm,30mm}
+\usepackage[showframe]{geometry}
+\geometry{
+	a4paper, 
+	landscape, 
+	left=50mm,
+	top=30mm,
+	showcrop}
 
 \begin{document}
-\layout
+	\layout
+	\tiny
+	\jiwon[1-2]
 \end{document}

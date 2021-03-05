@@ -1,0 +1,80 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "PDF 파일 결합"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX", "작업흐름", "팩키지", "레이아웃", "layout", "판형", "판면", "첫장", "결합"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+![](fig/merge-pdfs.png){width="622"}
+
+# PDF 파일 합치기 {#merge-pdf}
+
+`pdfpages` 팩키지를 활용하게 되면 `PDF` 파일을 결합할 수 있다.
+즉, 책이나 보고서의 겉장을 PDF 파일로 멋지게 작업한 후 이를 본문 `PDF` 파일과 결합시키게 되면 나름 전문가스러운 `PDF` 파일을 얻을 수 있다.
+
+# 표지 PDF {#show-front-pdf} 
+
+[`Canva`](https://www.canva.com/) 웹사이트에서 제작한 표지를 PDF로 다운로드 받아 겉장 표지로 준비한다.
+
+```{r embed-front-image-pdf2, out.height = "460px", out.width='800px', echo=TRUE}
+knitr::include_graphics("lipsum/cover/cover-pdf.pdf")
+```
+
+# PDF 본문 {#show-main-pdf} 
+
+보고서나 논문으로 제작한 결과를 `PDF` 파일로 저장시킨다.
+
+```{r embed-main-image-pdf, out.height = "460px", out.width='800px', echo=TRUE}
+knitr::include_graphics("lipsum/cover/main-pdf.pdf")
+```
+
+# PDF 결합 {#show-merge-pdf} 
+
+겉장 PDF 파일과 본문 PDF 파일을 결합시켜 최종 결과보고서로 준비한다.
+
+```{r merge-image-pdf, out.height = "460px", out.width='800px', echo=TRUE}
+knitr::include_graphics("lipsum/cover/merge-pdf.pdf")
+```
+
+```{r download-pdf}
+htmltools::a(href = 'lipsum/cover/merge-pdf.pdf', '다운로드')
+```
+
