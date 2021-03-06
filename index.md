@@ -33,4 +33,4 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
     1. [LaTeX 판형과 판면 레이아웃](latex-layout.html)
     1. [LaTeX 책표지](latex-frontmatter.html)
     1. [PDF 파일 결합](latex-merge-pdf.html)
-
+1. [R 마크다운 &rarr; PDF](latex-rmarkdown.html)
