@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2021-03-06" />
+
+<title>LaTeX 과 PDF</title>
+
+<script src="latex-rmarkdown-latex_files/header-attrs-2.6/header-attrs.js"></script>
+<script src="latex-rmarkdown-latex_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="latex-rmarkdown-latex_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="latex-rmarkdown-latex_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="latex-rmarkdown-latex_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="latex-rmarkdown-latex_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="latex-rmarkdown-latex_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="latex-rmarkdown-latex_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="latex-rmarkdown-latex_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="latex-rmarkdown-latex_files/navigation-1.1/tabsets.js"></script>
+<script src="latex-rmarkdown-latex_files/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<!-- <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/swc.css" />  -->
+<link rel="alternate" type="application/rss+xml" title="Tidyverse Korea" href="https://www.facebook.com/groups/tidyverse/"/>
+<meta charset="UTF-8" />
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59802572-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59802572-23');
+</script>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">LaTeX 과 PDF</h1>
+<h3 class="subtitle">R 마크다운 + LaTeX → PDF</h3>
+<h4 class="author">이광춘</h4>
+<address class="author_afil">
+<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-03-06</h4>
+
+</div>
+
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+<div id="latex-structure" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> <span class="math inline">\(\LaTeX\)</span> 구조</h1>
+<p><span class="math inline">\(\LaTeX\)</span> 문서구조는 <code>Preamble</code> 전문과 본문(Body)으로 구성된다. R마크다운에 들어가는 내용은 주로 본문으로 구성되기 때문에 문서 앞과 뒤를 넣을 수 있는 부분을 <span class="math inline">\(\LaTeX\)</span>의 전문(Preamble) 기능으로 대체할 경우 품질 좋은 데이터 과학 문서를 제작할 수 있다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>\documentclass{article}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>% 전문 preamble</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>\begin{document}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>% 본문 body</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>\end{document}</span></code></pre></div>
+</div>
+<div id="latex-rmarkdown-str" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> R마크다운 PDF 구조</h1>
+<p><code>preamble</code>을 조금더 직관적으로 표현하면 <span class="math inline">\(\LaTeX\)</span>의 팩키지를 가져오는 <code>import.tex</code> 파일로 지정하고, 첫장을 <code>cover.tex</code> PDF 파일로 준비한다. 그리고 나머지 부분은 일반적인 문서 작성하듯이 하면 된다.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>report<span class="op">/</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="er">|</span><span class="op">--</span><span class="st"> </span>rmarkdown.Rmd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="op">|--</span><span class="st"> </span>biblatex.bib</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="op">|--</span><span class="st"> </span>sections<span class="op">/</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="st">  </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>import.tex</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a>  <span class="op">|--</span><span class="st"> </span>cover.tex</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="op">|--</span><span class="st"> </span>images<span class="op">/</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="st">  </span><span class="er">|</span><span class="op">--</span><span class="st"> </span>ggplot.png</span></code></pre></div>
+</div>
+<div id="latex-rmarkdown-document" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> R마크다운 문서</h1>
+<p><code>in_header</code>에 가져올 팩키지를 지정하고, 겉표지 PDF는 <code>cover.tex</code>에서 설정한다.</p>
+<pre><code>
+---
+layout: page
+output:
+  bookdown::pdf_document2: 
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2  
+    number_sections: true
+    fig_width: 3
+    fig_height: 2
+    fig_caption: true
+    df_print: kable
+    highlight: tango
+    includes:
+      in_header: sections/import.tex   <-- 팩키지 설정
+      before_body: sections/cover.tex  <-- 겉표지 PDF
+mainfont: NanumGothic
+---
+</pre>
+<p></code></p>
+</div>
+<div id="latex-rmarkdown-document-structure" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> 문서구조 상세</h1>
+<div id="latex-import" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> <code>import.tex</code></h2>
+<p><code>pdfpages</code>를 사용하기 위해 <code>import.tex</code> 파일에 가져올 팩키지를 명시하고 HTML 파일을 PDF 파일에서 클릭하면 바로 연결할 수 있도록 <code>\renewcommand</code> 매크로도 함께 설정한다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_lines</span>(<span class="st">&#39;rmarkdown/sections/import.tex&#39;</span>), <span class="dt">sep =</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>\usepackage{kotex}
+
+% PDF 겉장 -------------------------------
+\usepackage{pdfpages}
+
+% HTML 링크
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}</code></pre>
+</div>
+<div id="latex-cover-tex" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> <code>cover.tex</code></h2>
+<p><code>cover.tex</code> 파일에는 <a href="https://www.canva.com/"><code>canva</code></a> 웹사이트에서 제작한 겉표지 PDF 파일을 R마크다운 문서에 넣을 수 있도록 설정한다.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_lines</span>(<span class="st">&#39;rmarkdown/sections/cover.tex&#39;</span>), <span class="dt">sep =</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>
+\includepdf[fitpaper]{cover-pdf}</code></pre>
+</div>
+<div id="latex-rmarkdown" class="section level2" number="4.3">
+<h2 number="4.3"><span class="header-section-number">4.3</span> <code>basics-latex.Rmd</code></h2>
+<p><code>basics-latex.Rmd</code> 파일은 PDF <span class="math inline">\(\LaTeX\)</span> 겉장을 포함시켜 데이터 과학 보고서를 제작할 수 있도록 설정한다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">cat</span>(readr<span class="op">::</span><span class="kw">read_lines</span>(<span class="st">&#39;rmarkdown/basics-latex.Rmd&#39;</span>), <span class="dt">sep =</span> <span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>)</span></code></pre></div>
+<pre><code>---
+layout: page
+output:
+  bookdown::pdf_document2: 
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2  
+    number_sections: true
+    fig_width: 3
+    fig_height: 2
+    fig_caption: true
+    df_print: kable
+    highlight: tango
+    includes:
+      in_header: sections/import.tex
+      before_body: sections/cover.tex
+mainfont: NanumGothic
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment=&quot;&quot;, digits = 3, tidy = FALSE, prompt = FALSE, fig.align = &#39;center&#39;)
+library(tidyverse)
+```
+
+
+# 들어가며 {#rmd-intro}
+
+[`lorem`](https://github.com/gadenbuie/lorem), [`shinipsum`](https://github.com/ThinkR-open/shinipsum) 팩키지가 도움이 된다.
+
+`r lorem::ipsum(paragraphs = 1)`
+
+# 텍스트 {#rmd-main}
+
+`r lorem::ipsum(paragraphs = 1)`
+
+## 증명 {#rmd-proof}
+
+`r lorem::ipsum(paragraphs = 1)`
+
+## 표 {#rmd-table}
+
+`r shinipsum::random_table(5, 7, &quot;numeric&quot;)`
+
+## 그래프 {#rmd-graph}
+
+&lt;!-- `r shinipsum::random_ggplot()` --&gt;
+
+```{r lorem-ipsum-penguin}
+library(palmerpenguins)
+library(tidyverse)
+
+ggplot(data = penguins,
+                       aes(x = flipper_length_mm,
+                           y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 1,
+             alpha = 0.8) +
+  theme_minimal() +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;purple&quot;,&quot;cyan4&quot;)) +
+  theme(legend.position = c(0.2, 0.7),
+        legend.background = element_rect(fill = &quot;white&quot;, color = NA),
+        plot.title.position = &quot;plot&quot;,
+        plot.caption = element_text(hjust = 0, face= &quot;italic&quot;),
+        plot.caption.position = &quot;plot&quot;)
+```
+
+
+## 그림 {#rmd-image}
+
+&lt;!-- `r shinipsum::random_image()` --&gt;
+
+![](../fig/latex-editor.png)
+
+## 모형 {#rmd-model}
+
+`r shinipsum::random_print(&quot;model&quot;)  %&gt;% broom::glance()`
+
+# 마무리 {#rmd-conclusion}
+
+`r lorem::ipsum(paragraphs = 1)`</code></pre>
+</div>
+</div>
+<div id="latex-rmarkdown-document-output" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> R 마크다운 + <span class="math inline">\(\LaTeX\)</span></h1>
+<p><span class="math inline">\(\LaTeX\)</span> 겉장을 R 마크다운 데이터 과학 보고서와 결합시켜 제작한 PDF 산출물은 다음과 같다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;rmarkdown/basics-latex.pdf&quot;</span>)</span></code></pre></div>
+<embed src="rmarkdown/basics-latex.pdf" width="800px" height="460px" style="display: block; margin: auto;" type="application/pdf" />
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;">데이터 과학자 <a href="https://github.com/statkclee/">이광춘</a> 저작</p>
+<p style="text-align: center;">
+    <span style="color: #808080;"><em>kwangchun.lee.7@gmail.com</em></span>
+</p>
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://education.rstudio.com/trainers/people/lee+kwangchun/" class="fa fa-registered"></a>
+    <a href="https://www.facebook.com/groups/tidyverse/" class="fa fa-facebook"></a>
+    <a href="https://www.linkedin.com/in/kwangchunlee/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/statkclee/" class="fa fa-github"></a>
+</p>
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
