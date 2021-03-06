@@ -15,7 +15,7 @@ output:
     fig_caption: true
     df_print: kable
     highlight: tango
-mainfont: NanumGothic    
+mainfont: NanumGothic
 ---
 
 ```{r setup, include=FALSE}

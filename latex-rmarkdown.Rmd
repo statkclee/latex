@@ -19,7 +19,7 @@ output:
     highlight: tango
     code_folding: show
     number_section: true
-    self_contained: true
+    self_contained: false
 bibliography: bibliography_latex.bib
 csl: biomed-central.csl
 mainfont: NanumGothic
@@ -31,6 +31,7 @@ editor_options:
     wrap: sentence
 header-includes:
    - \usepackage{gensymb}
+   - \usepackage{hologo}
 ---
 
 ```{r setup, include=FALSE}
@@ -44,4 +45,67 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 </style>
 ```
 
-# 
+# YAML 설정 {#basic-yaml-setting}
+
+## $\LaTeX$ 엔진 {#latex-engine}
+
+R마크다운에서 PDF 파일 문서를 생성하기 위해서는 $\LaTeX$ 엔진이 필요한데 유니코드를 지원하는 `xeLaTeX`을 기본 엔진으로 설정한다.
+이를 위해서 [ko.TeX](http://project.ktug.org/ko.TeX/)를 설치하고 RStudio에서 `RSTUDIO_PDFLATEX` 환경변수 설정을 통해 $\LaTeX$ 엔진을 연결시킨다.
+`usethis::edit_r_environ()` 명령어를 통해 `RSTUDIO_PDFLATEX="C:\texlive\2020\bin\win32"`와 같이 `ko.TeX`이 설치된 경로를 지정하면 된다.
+
+```{r check-latex}
+Sys.getenv("RSTUDIO_PDFLATEX")
+```
+
+## $\LaTeX$ 글꼴 {#latex-font}
+
+$\LaTeX$을 통해 `PDF` 파일을 조판하기 위해서는 한글글꼴이 필요하다. 
+YAML 헤더에 `mainfont: NanumGothic`을 지정하여 한글 글꼴을 명시해야 `???` 혹은 `ㅁ` 와 같은 한글깨짐 문제를 해결할 수 있다.
+
+<pre><code>
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "PDF 문서 기본"
+author: "이광춘"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    latex_engine: xelatex     <-- `LaTeX` 엔진 지정
+    toc: true
+    toc_depth: 2  
+    number_sections: true
+    fig_width: 3
+    fig_height: 2
+    fig_caption: true
+    df_print: kable
+    highlight: tango
+mainfont: NanumGothic        <-- 한글 글꼴 설정
+---
+</code></pre>
+
+# R lorem ipsum {#basic-lorem-ipsum}
+
+R 마크다운으로도 다른 $\LaTeX$과 마찬가지로 로렘입섬(Lorem Ipsum)을 작성할 수 있는 팩키지가 다수 존재한다.
+
+- [`lorem`](https://github.com/gadenbuie/lorem)
+- [`shinipsum`](https://github.com/ThinkR-open/shinipsum)
+
+[`shinipsum`](https://github.com/ThinkR-open/shinipsum)은 특히 샤이니 앱을 개발할 때 빠르게 기능을 구현하는데 도움을 준다.
+`lorem::ipsum()` 기능도 좋지만, `shinipsum::random_*()` 함수를 사용하게 되면 텍스트는 물론이고 표, 모형, `ggplot`, 이미지 등을 빠르게 문서에 Shiny 앱에 넣을 수가 있다.
+
+```{r comment=''}
+library(tidyverse)
+cat(readr::read_lines('rmarkdown/basics.Rmd'), sep = '\n')
+```
+
+
+# PDF 예제 {#pdf-rmarkdown}
+
+R마크다운 문서파일에 `output:`에  `pdf_document:` 출력결과를 하고 PDF 파일 기본설정을 통해 작성한 PDF 문서를 살펴보자.
+
+
+```{r embed-main-image-pdf, out.height = "460px", out.width='800px', echo=TRUE}
+knitr::include_graphics("rmarkdown/basics.pdf")
+```
+
