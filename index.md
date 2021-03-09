@@ -20,6 +20,7 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
     1. [원격 유닉스 환경 한글 사전준비](latex-remote.html)
     1. [한글 LaTeX 소개](latex-intro.html)
     1. [한글 LaTeX 윈도우 설치](latex-install-windows.html)
+    1. [맥OS LaTeX 윈도우 설치](latex-install-mac.html)    
     1. [한글 LaTeX 유틸리티](latex-utils.html)
 1. 안녕하세요 LaTeX    
     1. [영문 LaTeX 헬로월드](latex-english-helloworld.html)
