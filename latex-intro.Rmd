@@ -45,7 +45,13 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 ```
 한글 $\LaTeX$에 대한 소개와 함께 한글 $\LaTeX$를 실리콘(하드웨어) 위에 바로 설치하는 방법, 그리고, $\LaTeX$를 이용한 문서 프로그래밍 (영문, 한글)을 통해 통계적 사고(Think Stats2) 교재를 통한 실전 연습을 살펴본다.
 
-# 한글 LaTeX 문서작업 개괄 {#overview-latex}
+![](fig/publishing-latex.png)
+
+# 한글 $LaTeX$ 문서작업 개괄 [^1] {#overview-latex}
+
+[^1]: 이주호 (2017), "팁: 텍 출판에서 고려할 점", 국회예산정책처
+
+출판 과정은 크게 기획 &rarr; 편집 및 제작 &rarr; 배포 3단계 과정을 거치게 된다. 이 과정에서 $\LaTeX$이 관여하는 부분은 편집, 레이아웃 구성 및 조판이 이에 해당된다. 
 
 200자 원고지 4장은 통상 A4 용지 한장에 해당한다.
 만약 A4 용지 10장 보고서나 논문을 작성한다고 하면, 종이 200자 원고지 40장에 연필이나 볼펜을 가지고 작성하게 된다.
@@ -95,7 +101,6 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 
 ![$\LaTeX$ 툴체인 배포 자동화](fig/latex-toolchain-provisioning.png)
 
-
 # $\LaTeX$ 개요 {#latex-knuth}
 
 미국 스탠포트 대학 Donald Knuth 교수가 1977년에 만든 문서조판 프로그램을 TeX("텍"이라고 읽음)이라고 하고, Leslie Lamport 교수가 만든 TeX 매크로 팩키지를 LaTeX("레이텍"이라고 읽음)이라고 한다.
@@ -119,6 +124,9 @@ TeX 기본 엔진을 지원하는 다양한 TeX 팩키지, *AMS-(La)TeX*, *LaTeX
 
 1.  **배포판:** 과거 다양한 배포판이 윈도, 리눅스, 맥에 사용되었으나 현재는 [TeX Live](https://www.tug.org/texlive/) 가 유일의 LaTeX 작업환경이 되었다. 물론 [MikTeX](http://miktex.org/)이 독자적으로 유지되고 있으나 별차이가 없다.
 2.  **폰트:** 과거 폰트 메트릭(tfm), 메타폰트(MetaFont)를 사용하였으나, Type 1 을 걸쳐 트루타입과 오픈타입을 사용하도록 확대되었다.
+    - 폰트를 식품으로 표현하면 밥과 같이 거의 항상 평타를 칠 수 있는 폰트를 선택하는 것이 중요하다. 물론 특식 필요한 경우 그에 맞게 적절한 폰트를 선택하는 것이 중요하다.
+    - 폰트는 Serif와 San Serif를 한짝으로 삼아 한글로 보면 명조체(삐침이 있는 글꼴)과 고딕체를 동일한 폰트로 선택하는게 전체적으로 균형이 맞는다. 예를 들어, 나눔고딕-나눔명조, KoPub돋움-KoPub바탕, 함초롬도움-함초롬바탕 조합을 선택한다.
+    - 글자 크기는 10~12 포인트를 선택하는데 이유는 장시간 글을 읽게 되도 피로감을 줄일 수 있다.
 3.  **그래픽:** TeX/LaTeX은 기본적으로 그림은 TeX/LaTeX의 영역이 아닌 것으로 간주하고 있다. `dvips`를 사용하여 과거 EPS그림을 주로 사용했으나, 현재는 `.jpg`, `.png`, `.pdf`도 잘 처리한다.\
 4.  **문자와 입력:** 컴퓨터가 미국에서 개발되어 발전되어 주로 ASCII 코드가 주를 이뤘으나 2바이트 문자권인 한중일도 컴퓨터에서 자유로이 문자를 표현하고 입력할 수 있는 방식으로 UTF-8을 권장하고 있다. 특히, `\usepackage[utf8x]{inputenc}` 사용이 필요한 경우가 많이 있다.
 5.  **색인과 참고문헌:** `makeindex`와 `bibtex`가 색인과 참고문헌 처리를 위한 표준이지만, 유니코드를 좀더 잘 처리하고자 `xindy`와 `biber`도 주목받고 있다.
@@ -132,7 +140,7 @@ LaTeX 테스트 사례를 먼저 준비하여 한글 LaTeX 문서 작업을 본�
 **1. 영문 `.tex` 문서가 정상적으로 `.pdf` 파일을 생성하는지 시험한다.** - `pdflatex hello-world.tex` 명령어를 실행하면 `hello-world.pdf` 파일을 생성한다.
 물론 `hello-world.aux` , `hello-world.log` 파일로 함께 만들어낸다.
 
-``` {r sample-latex, eval = FALSE}
+```{r sample-latex, eval = FALSE}
 % hello-world.tex 견본 파일
 \documentclass{article}
 \begin{document}
@@ -149,7 +157,7 @@ Welcome to LaTeX Hello World!
 
 **2. 한글 LaTeX 작업을 위해서 사용자 모드로 관련 팩키지를 설치한다.**
 
-``` {r sample-latex-korean, eval = FALSE}
+```{r sample-latex-korean, eval = FALSE}
 % 한글견본 출처: 김도현, 2004년 동국대 법대, LaTeX으로의 초대 교재에서 발췌.
 \documentclass{article}
 \usepackage{dhucs}
@@ -168,7 +176,6 @@ Welcome to LaTeX Hello World!
 **3. LaTeX에서 HTML로 변환하는 `hevea.sty` 파일 설치한다.** - `통계적 사고(Think Stat2)`에 존재하는 `hevea`와 `evince`를 설치한다.
 `hevea`는 LaTeX을 HTML로 변환하고 `evince`는 다양한 문서를 볼 수 있는 응용프로그램이다.
 
-
 # 우분투/데비안 계열 리눅스 LaTeX 설치 {#distro-install}
 
 ## `texlive` 전체 엔진 설치 {#texlive-install}
@@ -176,7 +183,7 @@ Welcome to LaTeX Hello World!
 LaTeX 전체 엔진 및 전체 팩키지를 설치한다.
 `sudo apt-get -y install texlive-full`, `sudo apt-get -y install  texlive-xetex, texlive-luatex, texlive-lang-cjk` 명령어를 통해서 한글을 처리하도록 관련 팩키지를 설치한다.
 
-``` {r install-distro, eval = FALSE}
+```{r install-distro, eval = FALSE}
 $ sudo apt-get -y install texlive-full
 $ sudo apt-get -y install  texlive-xetex, texlive-luatex, texlive-lang-cjk
 $ sudo apt-get install xzdec
@@ -189,12 +196,12 @@ $ sudo tlmgr pinning add ktug "*"
 
 ## 통계적 사고(Think Stats2) 의존성 설치 {#install-think-stat}
 
-``` {r install-hevea, eval = FALSE}
+```{r install-hevea, eval = FALSE}
 sudo apt-get -y install hevea
 sudo apt-get -y install evince
 ```
 
-``` {r install-error, eval = FALSE}
+```{r install-error, eval = FALSE}
  LaTeX Error: File `hevea.sty' not found.
 ```
 
@@ -205,7 +212,7 @@ sudo apt-get -y install evince
 그 다음에 [README](http://hevea.inria.fr/distri/README) 파일에 나와있는 순서에 맞춰 설치를 계속 진행하면 된다.
 `make`를 하면 환경을 잡고 `make install`하면 `hevea`를 설치하게 된다.
 
-``` {r install-fix-error, eval = FALSE}
+```{r install-fix-error, eval = FALSE}
 $ wget http://hevea.inria.fr/distri/hevea-2.25.tar.gz
 $ tar xvf hevea-2.25.tar.gz 
 $ cd hevea-2.25/
@@ -218,7 +225,7 @@ $ sudo make install
 
 `Makefile`일 위치한 `ThinkStats2/book` 디렉토리로 이동하여 `make all`을 실행하면 `.pdf` 파일을 얻게되고, `make hevea`를 실행하면 `html` 디렉토리 밑에 웹페이지 형식 파일을이 자동생성된다.
 
-``` {r make-thinkstat, eval = FALSE}
+```{r make-thinkstat, eval = FALSE}
 [~/ ] $ git clone https://github.com/statkclee/ThinkStats2.git
 [~/ ] $ cd ThinkStats2/book
 [~/ThinkStats2/book ] $ make all
@@ -230,31 +237,37 @@ $ sudo make install
 
 [^3]: [공주대학교 LaTeX 워크샵](http://wiki.ktug.org/wiki/wiki.php/LaTeXWorkshop)
 
-
 # LaTeX 테스트 사례 준비 {#latex-test-content}
 
 LaTeX 문서 테스트 사례를 먼저 준비하여 한글 LaTeX 문서 작업을 본격 시작하기 전에 준비를 한다.
 
-1. 영문 LaTeX 문서 테스트 사례: 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 pdf 파일을 산출하는지 점검한다.
-1. 영문 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다.
-    - 목차(Table of Contents)
-    - 그림과 표
-    - 색인(makeindex)
-    - 참고문헌(bibtex)
-1. 한글 LaTeX 문서 테스트 사례: 한글 문서의 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 한글이 pdf 파일에 찍히는지를 점검한다.
-1. 한글 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다. 특히, 유니코드(utf-8)적용에 따른 줄간격, 글자간격 등 차이가 생길 수 있는 부분을 집중적으로 점검한다.
-    - 목차(Table of Contents)
-    - 그림과 표
-    - 색인(makeindex)
-    - 참고문헌(bibtex)
-1. HTML 산출물 점검: `.pdf`, `.ps`, `.dvi`는 동일한 계열이라 하나가 되면 나머지는 자동으로 될 수 있지만, `.tex` 파일을 **HTML**로 변환하는 것은 전혀 다른 문제로 단일 편집문서(LaTeX)에서 `.pdf`와 `.html`이 생성되도록 점검한다.
-    - `hevea.sty`를 저자는 사용했지만 다른 HTML 변환도구도 살펴보기를 권장한다.
-    - [Pandoc](http://pandoc.org/)도 많이 사용되는 강력한 HTML문서 변환도구로 간단한 명령어로 HTML 파일을 자동생성한다. 예를 들어, `pandoc -s book.tex --mathjax -o book.html`.
-   
-   
-## 영문 `.tex` 문서 &rarr; `.pdf` {#english-first}
+1.  영문 LaTeX 문서 테스트 사례: 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 pdf 파일을 산출하는지 점검한다.
 
-`pdflatex hello-world.tex` 명령어를 실행하면 `hello-world.pdf` 파일을 생성한다. 물론 `hello-world.aux` , `hello-world.log` 파일로 함께 만들어낸다.
+2.  영문 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다.
+
+    -   목차(Table of Contents)
+    -   그림과 표
+    -   색인(makeindex)
+    -   참고문헌(bibtex)
+
+3.  한글 LaTeX 문서 테스트 사례: 한글 문서의 가장 기본이 되는 테스트 사례로 `hello world` 문서를 작성해서 정상적으로 한글이 pdf 파일에 찍히는지를 점검한다.
+
+4.  한글 LaTeX 문서 다양한 기능 점검 사례: 목차, 색인, 참고문헌 등 기본적인 문서의 기능을 잘 동작하는지 점검한다. 특히, 유니코드(utf-8)적용에 따른 줄간격, 글자간격 등 차이가 생길 수 있는 부분을 집중적으로 점검한다.
+
+    -   목차(Table of Contents)
+    -   그림과 표
+    -   색인(makeindex)
+    -   참고문헌(bibtex)
+
+5.  HTML 산출물 점검: `.pdf`, `.ps`, `.dvi`는 동일한 계열이라 하나가 되면 나머지는 자동으로 될 수 있지만, `.tex` 파일을 **HTML**로 변환하는 것은 전혀 다른 문제로 단일 편집문서(LaTeX)에서 `.pdf`와 `.html`이 생성되도록 점검한다.
+
+    -   `hevea.sty`를 저자는 사용했지만 다른 HTML 변환도구도 살펴보기를 권장한다.
+    -   [Pandoc](http://pandoc.org/)도 많이 사용되는 강력한 HTML문서 변환도구로 간단한 명령어로 HTML 파일을 자동생성한다. 예를 들어, `pandoc -s book.tex --mathjax -o book.html`.
+
+## 영문 `.tex` 문서 → `.pdf` {#english-first}
+
+`pdflatex hello-world.tex` 명령어를 실행하면 `hello-world.pdf` 파일을 생성한다.
+물론 `hello-world.aux` , `hello-world.log` 파일로 함께 만들어낸다.
 
 ```{r english-test, eval = FALSE}
 % hello-world.tex 견본 파일
@@ -267,7 +280,8 @@ Welcome to LaTeX Hello World!
 \end{document}
 ```
 
-영문은 정상적으로 출력되나 한글은 그렇지 못할 수 있다. 따라서 적절하게 설정이 되었는지 다음 LaTeX 예제를 통해서 확인을 할 필요가 있다.
+영문은 정상적으로 출력되나 한글은 그렇지 못할 수 있다.
+따라서 적절하게 설정이 되었는지 다음 LaTeX 예제를 통해서 확인을 할 필요가 있다.
 
 ## 한글 LaTeX 시험 {#test-korean}
 
