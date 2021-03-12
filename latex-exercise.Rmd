@@ -1,0 +1,55 @@
+---
+layout: page
+title: "LaTeX 과 PDF "
+subtitle: "LaTeX 연습문제"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "한글", "PDF", "LaTeX"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_latex.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: sentence
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+```
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+```
+
+# 한글과 $TeX$ 연습문제 {#hlatex}
+
+한국과학기술원 산업수학연구실 고기형 지음(1995), "한글 LATEX의 모든 것—한글과 TEX"의 목차와 연습문제를 보게 되면 $LaTeX$ 기본기를 익히는데 큰 도움이 될 듯 싶다.
+
+```{r embed-pdf, out.height = "460px", out.width='800px', echo=TRUE} 
+knitr::include_graphics("data/hangul-latex-exercises.pdf")
+```
+
+hangul-latex-exercises.pdf
