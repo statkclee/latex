@@ -18,7 +18,7 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
     1. [한글 LaTeX 소개](latex-intro.html)
     1. [PDF 파일포맷과 작업흐름](latex-workflow.html)
 1. LaTeX 환경 설정
-    1. [다양한 LaTeX IDE 저작환경](latex-environment.html)
+    1. **[문서 편집기](document-ide.html)**
     1. [원격 유닉스 환경 한글 사전준비](latex-remote.html)
     1. [한글 LaTeX 윈도우 설치](latex-install-windows.html)
     1. [맥OS LaTeX 윈도우 설치](latex-install-mac.html)    
