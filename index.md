@@ -23,14 +23,13 @@ title: "LaTeX, PDF, 문서, 그리고 사고"
     1. [한글 LaTeX 윈도우 설치](latex-install-windows.html)
     1. [맥OS LaTeX 윈도우 설치](latex-install-mac.html)    
     1. [한글 LaTeX 유틸리티](latex-utils.html)
-1. 안녕하세요 LaTeX    
-    1. [LaTeX 국영문 lipsum](latex-lipsum.html)
+1. [LaTeX 팩키지 저장소](latex-repository.html)
+    1. [LaTeX 팩키지](latex-packages.html)
+    1. [LaTeX 프로젝트](latex-project.html)
+1. 헬로 월드 LaTeX : [LaTeX 국영문 lipsum](latex-lipsum.html)    
     1. [영문 LaTeX 헬로월드](latex-english-helloworld.html)
     1. [한글 LaTeX 헬로월드](latex-korean-helloworld.html)
     1. [LaTeX 연습문제](latex-exercise.html)
-1. LaTeX 관리
-    1. [LaTeX 팩키지](latex-packages.html)
-    1. [LaTeX 프로젝트](latex-project.html)
 1. 실무 LaTeX 문서
     1. [LaTeX 제목(Title)](latex-title.html)
     1. [LaTeX 판형과 판면 레이아웃](latex-layout.html)
